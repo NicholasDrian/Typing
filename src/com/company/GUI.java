@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 public class GUI extends JFrame implements KeyListener, ActionListener {
 
-    int wordCount = 40;
+    int wordCount = 20;
     int minWordLength = 1;
     int maxWordLength = 8;
     int wordsPerLine = 8;
@@ -85,7 +85,7 @@ public class GUI extends JFrame implements KeyListener, ActionListener {
 
 
         textArea = new JTextArea(text);
-        textArea.setFont(new Font("Courier", Font.PLAIN, 22));
+        textArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 22));
         textArea.setLocation(25,130);
         textArea.setSize(800, 150);
         textArea.setLineWrap(true);
@@ -95,7 +95,7 @@ public class GUI extends JFrame implements KeyListener, ActionListener {
         add(textArea);
 
         textTypedArea = new JTextArea(textTyped);
-        textTypedArea.setFont(new Font("Courier", Font.PLAIN, 22));
+        textTypedArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 22));
         textTypedArea.setLocation(25,130);
         textTypedArea.setSize(800, 150);
         textTypedArea.setLineWrap(true);
@@ -106,7 +106,7 @@ public class GUI extends JFrame implements KeyListener, ActionListener {
         add(textTypedArea);
 
         wrongArea = new JTextArea(textTyped);
-        wrongArea.setFont(new Font("Courier", Font.PLAIN, 22));
+        wrongArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 22));
         wrongArea.setLocation(25,130);
         wrongArea.setSize(800, 150);
         wrongArea.setLineWrap(true);
@@ -117,7 +117,7 @@ public class GUI extends JFrame implements KeyListener, ActionListener {
         add(wrongArea);
 
         stats = new JTextArea();
-        stats.setFont(new Font("Courier", Font.BOLD, 30));
+        stats.setFont(new Font(Font.MONOSPACED, Font.BOLD, 30));
         stats.setLocation(45,70);
         stats.setSize(800, 50);
         stats.setOpaque(false);
@@ -177,12 +177,13 @@ public class GUI extends JFrame implements KeyListener, ActionListener {
             startTime = System.nanoTime();
         }
         if (c == text.charAt(typed)){
-            if (c == ' ') {
-                c = '_';
-            }
             char ch = ' ';
             if (c == '\n') {
                 ch = '\n';
+                textTyped += '↓';
+            }
+            if (c == ' ') {
+                c = '_';
             }
             if (lastError) {
                 wrong = wrong + c;
@@ -207,6 +208,9 @@ public class GUI extends JFrame implements KeyListener, ActionListener {
                 errors++;
                 lastError = true;
             }
+        }
+        if (typed + 1 == text.length()){
+            resetText();
         }
     }
 
