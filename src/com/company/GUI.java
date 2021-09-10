@@ -180,7 +180,11 @@ public class GUI extends JFrame implements KeyListener, ActionListener {
             char ch = ' ';
             if (c == '\n') {
                 ch = '\n';
-                textTyped += '↓';
+                if(lastError){
+                    wrong += '↓';
+                } else {
+                    textTyped += '↓';
+                }
             }
             if (c == ' ') {
                 c = '_';
